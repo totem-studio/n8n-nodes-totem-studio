@@ -1,0 +1,285 @@
+{
+  "name": "n8n-nodes-totem-studio",
+  "version": "1.0.0-rc.1",
+  "repository": "https://github.com/totem-studio/n8n-nodes-totem-studio.git",
+  "state": "REVIEWABLE_SOURCE_SNAPSHOT_NOT_PUBLISHED",
+  "nodes": [
+    "dist/nodes/TotemStudio/TotemStudioPublic.node.js",
+    "dist/nodes/TotemStudio/TotemStudioEventTrigger.node.js"
+  ],
+  "credentials": [
+    "dist/credentials/TotemStudioPublicApi.credentials.js"
+  ],
+  "sources": [
+    {
+      "source": "credentials/publicApiCredential.ts",
+      "path": "credentials/publicApiCredential.ts",
+      "sourceSha256": "4988cdb57508cac3bdd1eb0e3d2a6b4e7057ed1157aaec09b1a4c64a9e6a0371",
+      "exportedSha256": "4988cdb57508cac3bdd1eb0e3d2a6b4e7057ed1157aaec09b1a4c64a9e6a0371",
+      "importPathsRelocated": false
+    },
+    {
+      "source": "nodes/TotemStudio/publicApiBusiness.ts",
+      "path": "nodes/TotemStudio/publicApiBusiness.ts",
+      "sourceSha256": "41395cbc3052e61208c7dbc086c7c915b567ea90c37352603aede40216944da3",
+      "exportedSha256": "41395cbc3052e61208c7dbc086c7c915b567ea90c37352603aede40216944da3",
+      "importPathsRelocated": false
+    },
+    {
+      "source": "nodes/TotemStudio/publicApiEvents.ts",
+      "path": "nodes/TotemStudio/publicApiEvents.ts",
+      "sourceSha256": "39013401b849fa7cddf0c2ff081e38084898d94730c3f08ab55e94ceeb48f29f",
+      "exportedSha256": "39013401b849fa7cddf0c2ff081e38084898d94730c3f08ab55e94ceeb48f29f",
+      "importPathsRelocated": false
+    },
+    {
+      "source": "nodes/TotemStudio/publicApiExecutionContext.ts",
+      "path": "nodes/TotemStudio/publicApiExecutionContext.ts",
+      "sourceSha256": "7a00f06be23ace9daf8b247964510eae25f17cd9d08728df45c9af92b0f9d1bf",
+      "exportedSha256": "7a00f06be23ace9daf8b247964510eae25f17cd9d08728df45c9af92b0f9d1bf",
+      "importPathsRelocated": false
+    },
+    {
+      "source": "nodes/TotemStudio/publicApiNode.ts",
+      "path": "nodes/TotemStudio/publicApiNode.ts",
+      "sourceSha256": "a88c68e00cda3482b92d43f3be8fa15e41f65aa9238eff98508c0668e3b4d53f",
+      "exportedSha256": "a88c68e00cda3482b92d43f3be8fa15e41f65aa9238eff98508c0668e3b4d53f",
+      "importPathsRelocated": false
+    },
+    {
+      "source": "nodes/TotemStudio/publicApiOperationWait.ts",
+      "path": "nodes/TotemStudio/publicApiOperationWait.ts",
+      "sourceSha256": "535aea41823c352a424b5e6070219674016f668a3d09aab9c8cbef34c8179296",
+      "exportedSha256": "535aea41823c352a424b5e6070219674016f668a3d09aab9c8cbef34c8179296",
+      "importPathsRelocated": false
+    },
+    {
+      "source": "nodes/TotemStudio/publicApiUtils.ts",
+      "path": "nodes/TotemStudio/publicApiUtils.ts",
+      "sourceSha256": "fdbba370157c9c73fb0856a23d2101f410248fb52a1efc205db1b23c58494f38",
+      "exportedSha256": "fdbba370157c9c73fb0856a23d2101f410248fb52a1efc205db1b23c58494f38",
+      "importPathsRelocated": false
+    },
+    {
+      "source": "nodes/TotemStudio/publicApiWriteContext.ts",
+      "path": "nodes/TotemStudio/publicApiWriteContext.ts",
+      "sourceSha256": "8e53e631287f15c2082a07a74b88fea9a77f3b259e038a92ac22c20c5018b6bb",
+      "exportedSha256": "8e53e631287f15c2082a07a74b88fea9a77f3b259e038a92ac22c20c5018b6bb",
+      "importPathsRelocated": false
+    },
+    {
+      "source": "nodes/TotemStudio/publicPreparedResponse.ts",
+      "path": "nodes/TotemStudio/publicPreparedResponse.ts",
+      "sourceSha256": "e1d9714149d9dac9d4cdfa2deb9bfb7d774c7c47c2ed3716a57bdffa572e5e03",
+      "exportedSha256": "e1d9714149d9dac9d4cdfa2deb9bfb7d774c7c47c2ed3716a57bdffa572e5e03",
+      "importPathsRelocated": false
+    },
+    {
+      "source": "nodes/TotemStudio/runtimeExecutionContext.ts",
+      "path": "nodes/TotemStudio/runtimeExecutionContext.ts",
+      "sourceSha256": "cb539e870fbe12ba7a932fdb88ce831805d829e091e267b89ff48ec96a397fea",
+      "exportedSha256": "cb539e870fbe12ba7a932fdb88ce831805d829e091e267b89ff48ec96a397fea",
+      "importPathsRelocated": false
+    },
+    {
+      "source": "nodes/TotemStudio/totemStudioV2Client.ts",
+      "path": "nodes/TotemStudio/totemStudioV2Client.ts",
+      "sourceSha256": "43377796c10c83f4d17b9da9efbdb288d18009f2a8c8ff2dafb80fb21c3bf734",
+      "exportedSha256": "43377796c10c83f4d17b9da9efbdb288d18009f2a8c8ff2dafb80fb21c3bf734",
+      "importPathsRelocated": false
+    },
+    {
+      "source": "nodes/TotemStudio/totemStudioV2Operations.ts",
+      "path": "nodes/TotemStudio/totemStudioV2Operations.ts",
+      "sourceSha256": "24b4ed135b754c98adab9fb532c0da3f3599280513f989e821b9f35eec4ad7bc",
+      "exportedSha256": "24b4ed135b754c98adab9fb532c0da3f3599280513f989e821b9f35eec4ad7bc",
+      "importPathsRelocated": false
+    },
+    {
+      "source": "public/TotemStudio.entry.ts",
+      "path": "nodes/TotemStudio/TotemStudioPublic.node.ts",
+      "sourceSha256": "450559c0c5dbcf14dcebec1dcb081e1fac9f936fd28dd020f2ac5a78b165cfdb",
+      "exportedSha256": "a4758454a737eede69731af5b6a435ce95a960a19ea60f527fe69f3eac0e8aa6",
+      "importPathsRelocated": true
+    },
+    {
+      "source": "public/TotemStudioEventTrigger.entry.ts",
+      "path": "nodes/TotemStudio/TotemStudioEventTrigger.node.ts",
+      "sourceSha256": "15c14c5da557a15517b0fd390cb76e1575a5f8587e68ea5b0f3f2cfc95785427",
+      "exportedSha256": "47841ec151a1e359a21dd62f284a0c19d2dfd0324630f81a03908ca31e5003dd",
+      "importPathsRelocated": true
+    },
+    {
+      "source": "public/TotemStudioPublicApi.entry.ts",
+      "path": "credentials/TotemStudioPublicApi.credentials.ts",
+      "sourceSha256": "05a834d1152283542280934b8e2d453139ca2d2ba8f1f833b059388e4ccb3ac6",
+      "exportedSha256": "ac6a927242051243164afe70e970ea2ce605fbca179bda527db9592055ea56e1",
+      "importPathsRelocated": true
+    }
+  ],
+  "files": [
+    {
+      "path": ".github/workflows/public-release.yml",
+      "sha256": "14325551e20df1090ff9ad01c5ef0403737118862eb2571e0fb23cd3c9af0c15"
+    },
+    {
+      "path": ".gitignore",
+      "sha256": "cf9bc4c708ffd297224354df58158cb9d6c4b3c71c4c37d8913109df9405c84d"
+    },
+    {
+      "path": ".nvmrc",
+      "sha256": "55075b5ec4e8b31936cbbc282b8829116d1fd48f2f2f1856dee592a6650700ce"
+    },
+    {
+      "path": "CHANGELOG.md",
+      "sha256": "3b14e4387726a6d91666a3e50446b1eeb97314d9b648a0695dcab718413a9506"
+    },
+    {
+      "path": "LICENSE",
+      "sha256": "3c4bdb01ff0cbe32c213578e9f54c60cb8c5619024a158fb9573733fd715c8b0"
+    },
+    {
+      "path": "README.md",
+      "sha256": "36d26b61e4491dfc325a484199a7f471ec6cc64e5c9dc46301b192513612f748"
+    },
+    {
+      "path": "credentials/TotemStudioPublicApi.credentials.ts",
+      "sha256": "ac6a927242051243164afe70e970ea2ce605fbca179bda527db9592055ea56e1"
+    },
+    {
+      "path": "credentials/publicApiCredential.ts",
+      "sha256": "4988cdb57508cac3bdd1eb0e3d2a6b4e7057ed1157aaec09b1a4c64a9e6a0371"
+    },
+    {
+      "path": "credentials/totemStudio.dark.svg",
+      "sha256": "7dd93cfd615a39b66494cb0cafc27eaf3b0d20270c237c94e951f77741bc9b55"
+    },
+    {
+      "path": "credentials/totemStudio.svg",
+      "sha256": "62474b00683204116fa548f7f325458a214c10ab78646d821c639388b29b8ff0"
+    },
+    {
+      "path": "eslint.config.mjs",
+      "sha256": "63d328f3c4c6f67d657df3fb351b436c0e9e169da1893f0d3e703e760293711c"
+    },
+    {
+      "path": "examples/find-lead-by-phone.json",
+      "sha256": "c804815fad8941fa4549bd14fc7b8caf93cda7fb516b86fede6d81c4fecdec41"
+    },
+    {
+      "path": "examples/import-lead.json",
+      "sha256": "446ef39bb0e2a2656b2b8e5edb9db6850dba38a115f4950a98d2059145c6e0d9"
+    },
+    {
+      "path": "nodes/TotemStudio/TotemStudioEventTrigger.node.json",
+      "sha256": "5bf61ea80b4af9d5d1abb718e5f21f2952bfdfb3af2677ee9d8a23f5c544d684"
+    },
+    {
+      "path": "nodes/TotemStudio/TotemStudioEventTrigger.node.ts",
+      "sha256": "47841ec151a1e359a21dd62f284a0c19d2dfd0324630f81a03908ca31e5003dd"
+    },
+    {
+      "path": "nodes/TotemStudio/TotemStudioPublic.node.json",
+      "sha256": "75d947467befd46f78aa28965b4c1ff42f7c3de350e32d2cdb402ff86677a748"
+    },
+    {
+      "path": "nodes/TotemStudio/TotemStudioPublic.node.ts",
+      "sha256": "a4758454a737eede69731af5b6a435ce95a960a19ea60f527fe69f3eac0e8aa6"
+    },
+    {
+      "path": "nodes/TotemStudio/publicApiBusiness.ts",
+      "sha256": "41395cbc3052e61208c7dbc086c7c915b567ea90c37352603aede40216944da3"
+    },
+    {
+      "path": "nodes/TotemStudio/publicApiEvents.ts",
+      "sha256": "39013401b849fa7cddf0c2ff081e38084898d94730c3f08ab55e94ceeb48f29f"
+    },
+    {
+      "path": "nodes/TotemStudio/publicApiExecutionContext.ts",
+      "sha256": "7a00f06be23ace9daf8b247964510eae25f17cd9d08728df45c9af92b0f9d1bf"
+    },
+    {
+      "path": "nodes/TotemStudio/publicApiNode.ts",
+      "sha256": "a88c68e00cda3482b92d43f3be8fa15e41f65aa9238eff98508c0668e3b4d53f"
+    },
+    {
+      "path": "nodes/TotemStudio/publicApiOperationWait.ts",
+      "sha256": "535aea41823c352a424b5e6070219674016f668a3d09aab9c8cbef34c8179296"
+    },
+    {
+      "path": "nodes/TotemStudio/publicApiUtils.ts",
+      "sha256": "fdbba370157c9c73fb0856a23d2101f410248fb52a1efc205db1b23c58494f38"
+    },
+    {
+      "path": "nodes/TotemStudio/publicApiWriteContext.ts",
+      "sha256": "8e53e631287f15c2082a07a74b88fea9a77f3b259e038a92ac22c20c5018b6bb"
+    },
+    {
+      "path": "nodes/TotemStudio/publicPreparedResponse.ts",
+      "sha256": "e1d9714149d9dac9d4cdfa2deb9bfb7d774c7c47c2ed3716a57bdffa572e5e03"
+    },
+    {
+      "path": "nodes/TotemStudio/runtimeExecutionContext.ts",
+      "sha256": "cb539e870fbe12ba7a932fdb88ce831805d829e091e267b89ff48ec96a397fea"
+    },
+    {
+      "path": "nodes/TotemStudio/totemStudio.dark.svg",
+      "sha256": "7dd93cfd615a39b66494cb0cafc27eaf3b0d20270c237c94e951f77741bc9b55"
+    },
+    {
+      "path": "nodes/TotemStudio/totemStudio.svg",
+      "sha256": "62474b00683204116fa548f7f325458a214c10ab78646d821c639388b29b8ff0"
+    },
+    {
+      "path": "nodes/TotemStudio/totemStudioV2Client.ts",
+      "sha256": "43377796c10c83f4d17b9da9efbdb288d18009f2a8c8ff2dafb80fb21c3bf734"
+    },
+    {
+      "path": "nodes/TotemStudio/totemStudioV2Operations.ts",
+      "sha256": "24b4ed135b754c98adab9fb532c0da3f3599280513f989e821b9f35eec4ad7bc"
+    },
+    {
+      "path": "package-lock.json",
+      "sha256": "7bc91b34f55c2f405a800159ae904b908cf55106fae360920882351aadf2e772"
+    },
+    {
+      "path": "package.json",
+      "sha256": "f2a853bf0a66ea2301cdb1c233e9a706750b4926f1798956666f4aadfc529721"
+    },
+    {
+      "path": "public/qa-host-package-lock.json",
+      "sha256": "be9258cbd73fb8a9cf64828d0a47046cee9c98f851d82bb12f32ffded5ab7612"
+    },
+    {
+      "path": "scripts/build-public-package.mjs",
+      "sha256": "d43ff525bd477a12dee07a3308d4b0b322db0b835b3fda2b25b68dde84e2fa57"
+    },
+    {
+      "path": "scripts/build.mjs",
+      "sha256": "208728257e9124a3fa2596dd47384d8872caddbd76aebd8a874aba4b52292f27"
+    },
+    {
+      "path": "scripts/pack-public-package.mjs",
+      "sha256": "f07f36a24e835a9f50595a50a1befc4e1ff49ea5b77a522e27dd82c0c43ad638"
+    },
+    {
+      "path": "scripts/probe-public-consumer.mjs",
+      "sha256": "07c9c371ec83f4b8ee1efc00f6d81073e5e98f5bb433d25f095fba4faf813ac9"
+    },
+    {
+      "path": "scripts/public-package-qa.mjs",
+      "sha256": "75c7294baaa58a4341eae603a8b0271167ca85f8941123efd0d97e1f364f08d8"
+    },
+    {
+      "path": "scripts/smoke-public-package.mjs",
+      "sha256": "ae4f22d378c304be5bf8c6a344b64b04c3f041849d55f50354158acd079e99d6"
+    },
+    {
+      "path": "tsconfig.json",
+      "sha256": "efb3f15417b29b24c3ee0a9d269410dc592c76e78629a4e0ad226e7e0588f173"
+    }
+  ],
+  "remoteCreated": false,
+  "publisherTrustConfigured": false,
+  "privateHistoryIncluded": false
+}

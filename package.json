@@ -1,0 +1,61 @@
+{
+  "name": "n8n-nodes-totem-studio",
+  "version": "1.0.0-rc.1",
+  "description": "Connect n8n workflows and AI tools to the Totem Studio public API",
+  "license": "MIT",
+  "author": {
+    "name": "TotemStudio",
+    "email": "hello@totemstudio.ai"
+  },
+  "homepage": "https://totemstudio.ai/developers",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/totem-studio/n8n-nodes-totem-studio.git"
+  },
+  "bugs": {
+    "email": "hello@totemstudio.ai"
+  },
+  "keywords": [
+    "n8n-community-node-package",
+    "totem-studio",
+    "crm"
+  ],
+  "engines": {
+    "node": ">=24.18.0"
+  },
+  "files": [
+    "dist",
+    "examples"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  },
+  "n8n": {
+    "n8nNodesApiVersion": 1,
+    "strict": true,
+    "nodes": [
+      "dist/nodes/TotemStudio/TotemStudioPublic.node.js",
+      "dist/nodes/TotemStudio/TotemStudioEventTrigger.node.js"
+    ],
+    "credentials": [
+      "dist/credentials/TotemStudioPublicApi.credentials.js"
+    ]
+  },
+  "peerDependencies": {
+    "n8n-workflow": "*"
+  },
+  "scripts": {
+    "build": "tsc --noEmit && node scripts/build.mjs",
+    "test": "node scripts/public-package-qa.mjs verify",
+    "lint": "node scripts/public-package-qa.mjs lint",
+    "qa:prepare": "node scripts/public-package-qa.mjs prepare",
+    "pack:public": "node scripts/pack-public-package.mjs"
+  },
+  "devDependencies": {
+    "@types/node": "18.19.130",
+    "esbuild": "0.28.2",
+    "typescript": "6.0.3",
+    "n8n-workflow": "2.45.4"
+  }
+}

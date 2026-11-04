@@ -1,0 +1,58 @@
+name: Public npm release
+
+on:
+  push:
+    tags:
+      - 'n8n-v*'
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    # This same file is exported with the public sources. Private history never publishes.
+    if: github.repository == 'totem-studio/n8n-nodes-totem-studio' && github.event.repository.private == false
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: 24.18.0
+          registry-url: https://registry.npmjs.org
+      - name: Require the public source repository and exact release version
+        env:
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: |
+          test "$RELEASE_TAG" = "n8n-v$(node -p "require('./package.json').version")"
+          node -e "if(require('./package.json').repository.url !== 'https://github.com/totem-studio/n8n-nodes-totem-studio.git') process.exit(1)"
+      - run: npm ci --ignore-scripts --no-audit --no-fund
+      - run: npm run build
+      - name: Install the declared patched QA tools outside the public source tree
+        run: |
+          npm run qa:prepare -- "$RUNNER_TEMP/totem-public-qa-host"
+          npm ci --prefix "$RUNNER_TEMP/totem-public-qa-host" --ignore-scripts --no-audit --no-fund
+      - name: Lint every public source using the unmodified official default CLI
+        run: npm run lint -- "$RUNNER_TEMP/totem-public-qa-host"
+      - run: npm run pack:public
+      - name: Load the exact packed artifact in the real host and exercise its public HTTP boundary
+        run: |
+          file=".release/$(node -p "const p=require('./package.json');p.name+'-'+p.version+'.tgz'")"
+          npm test -- "$file" "$RUNNER_TEMP/totem-public-qa-host"
+      - name: Publish the reviewed public artifact using npm trusted publishing
+        run: |
+          file=".release/$(node -p "const p=require('./package.json');p.name+'-'+p.version+'.tgz'")"
+          test -f "$file"
+          (cd .release && sha256sum -c "$(basename "$file").sha256")
+          version="$(node -p "require('./package.json').version")"
+          case "$version" in *-*) channel=next ;; *) channel=latest ;; esac
+          npm publish "$file" --tag "$channel" --access public --provenance --ignore-scripts
+      - name: Verify the public registry version and integrity
+        run: |
+          package="$(node -p "const p=require('./package.json');p.name+'@'+p.version")"
+          npm view "$package" version dist.integrity dist.attestations --json

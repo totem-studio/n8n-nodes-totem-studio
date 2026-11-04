@@ -1,0 +1,33 @@
+{
+  "name": "Import a contact into Totem Studio",
+  "active": false,
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "manual-start",
+      "name": "Start manually",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [0, 0]
+    },
+    {
+      "parameters": {
+        "resource": "lead",
+        "operation": "upsert",
+        "teamId": "team_REPLACE",
+        "fields": "{\"origin\":\"import\",\"email\":\"alex@example.com\",\"name\":\"Alex\"}"
+      },
+      "id": "import-lead",
+      "name": "Import contact",
+      "type": "n8n-nodes-totem-studio.totemStudioPublic",
+      "typeVersion": 1,
+      "position": [280, 0]
+    }
+  ],
+  "connections": {
+    "Start manually": {
+      "main": [[{"node": "Import contact", "type": "main", "index": 0}]]
+    }
+  },
+  "settings": {"executionOrder": "v1"}
+}

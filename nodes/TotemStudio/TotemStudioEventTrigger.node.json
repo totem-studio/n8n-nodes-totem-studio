@@ -1,0 +1,16 @@
+{
+  "node": "n8n-nodes-totem-studio.totemStudioEventTrigger",
+  "nodeVersion": "1.0",
+  "codexVersion": "1.0",
+  "categories": [
+    "Communication",
+    "Sales"
+  ],
+  "resources": {
+    "primaryDocumentation": [
+      {
+        "url": "https://totemstudio.ai/developers"
+      }
+    ]
+  }
+}
