@@ -85,6 +85,7 @@ export function validBusinessRequest(operation: string, value: unknown, hosted: 
 		case 'messages.requestInfo': return shape(value, { lead_id: lead, info: string(500, 1) }, hosted ? ['info'] : ['lead_id', 'info']);
 		case 'conversations.messages': return shape(value, { conversation_id: conversation, limit: integer(1, 50) }, hosted ? [] : ['conversation_id']);
 		case 'bookings.availability': return shape(value, { lead_id: lead, service_id: opaque('svc'), option: calendar, from_at: instant, to_at: instant,
+			additional_services: array(row => shape(row, { service_id: opaque('svc'), option: calendar }, ['service_id']), 4, 1),
 			party_size: integer(1, 10_000), resource_units: integer(1, 10_000), booking_page: string(160, 1) }, ['lead_id', 'service_id']);
 		case 'bookings.forLead': return shape(value, { lead_id: lead, from_at: instant, to_at: instant }, ['lead_id']);
 		case 'bookings.create': return shape(value, { lead_id: lead, offer: calendar, customer_name: string(300, 1), notes: string(10_000), payment_reference: calendar }, ['lead_id', 'offer', 'customer_name']);

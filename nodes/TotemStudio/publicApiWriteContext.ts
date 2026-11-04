@@ -69,8 +69,12 @@ export function preparePublicApiWrite(
 		const nodeId = context.getNode().id;
 		if (typeof nodeId !== 'string' || !nodeId || nodeId.length > 256)
 			throw new TotemStudioV2ClientError('invalid_request', 400);
-		stable = 'hst_' + createHash('sha256').update(JSON.stringify([executionAuthority.principalId, executionAuthority.rawTeamId,
-			executionAuthority.executionId, nodeId, String(request.resource), String(request.operation), index])).digest('hex');
+		const parts: Array<string | number> = [executionAuthority.principalId, executionAuthority.rawTeamId,
+			executionAuthority.executionId, nodeId, String(request.resource), String(request.operation), index];
+		// Preserve every original no-reference key byte. Only the verified engine
+		// invocation distinguishes separate auxiliary intents in this same source.
+		if (executionAuthority.auxiliaryExecutionRef) parts.push(executionAuthority.auxiliaryExecutionRef.invocationId);
+		stable = 'hst_' + createHash('sha256').update(JSON.stringify(parts)).digest('hex');
 	}
 	const slot = stable ?? tenantSlot(context, index, request.operation);
 	const fingerprint = fingerprintOf(request);

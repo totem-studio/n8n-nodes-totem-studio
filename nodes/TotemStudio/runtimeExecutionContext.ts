@@ -64,7 +64,8 @@ export function totemExecutionIngressParents(context: Context): NodeTypeAndVersi
 /** Only this genuinely executed private source adapter may replace input authority with a prepared whole-batch proof. */
 export function totemExecutionSourceParents(context: Context): NodeTypeAndVersion[] {
 	return ingressParents(context).filter(node => !node.disabled && node.typeVersion === 1
-		&& ['CUSTOM.totemStudioMessageSource', 'n8n-nodes-totem-studio.totemStudioMessageSource'].includes(node.type));
+		&& ['CUSTOM.totemStudioMessageSource', 'n8n-nodes-totem-studio.totemStudioMessageSource',
+			'CUSTOM.totemStudioAuxiliarySource'].includes(node.type));
 }
 
 function literalTeam(value: unknown): string {

@@ -1,6 +1,6 @@
 # n8n-nodes-totem-studio
 
-Candidate **1.0.0-rc.1** is prepared locally and has not been published. Stable
+Candidate **1.0.0** is prepared locally and has not been published. Stable
 1.0 acceptance still requires regional canaries and retirement of the old business path.
 
 Connect n8n workflows and AI tools to the [Totem Studio API](https://totemstudio.ai/developers).
@@ -262,7 +262,7 @@ npm run qa:prepare -- "$qa_host"
 npm ci --prefix "$qa_host" --ignore-scripts --no-audit --no-fund
 npm run lint -- "$qa_host"
 npm run pack:public
-npm test -- .release/n8n-nodes-totem-studio-1.0.0-rc.1.tgz "$qa_host"
+npm test -- .release/n8n-nodes-totem-studio-1.0.0.tgz "$qa_host"
 ```
 
 The public build has four exact development dependencies, including the real

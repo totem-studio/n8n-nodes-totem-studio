@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-totem-studio",
-  "version": "1.0.0-rc.1",
+  "version": "1.0.0",
   "description": "Connect n8n workflows and AI tools to the Totem Studio public API",
   "license": "MIT",
   "author": {
