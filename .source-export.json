@@ -35,8 +35,8 @@
     {
       "source": "nodes/TotemStudio/publicApiExecutionContext.ts",
       "path": "nodes/TotemStudio/publicApiExecutionContext.ts",
-      "sourceSha256": "4abe7be4eb0ea3c02fa9448bda09195638764cc4d012aa4b1ffae84d42e94c74",
-      "exportedSha256": "4abe7be4eb0ea3c02fa9448bda09195638764cc4d012aa4b1ffae84d42e94c74",
+      "sourceSha256": "cef4215848d5b91692d6ea2155ff446b455a6ce8109a96151de9e8cffd9efbab",
+      "exportedSha256": "cef4215848d5b91692d6ea2155ff446b455a6ce8109a96151de9e8cffd9efbab",
       "importPathsRelocated": false
     },
     {
@@ -196,7 +196,7 @@
     },
     {
       "path": "nodes/TotemStudio/publicApiExecutionContext.ts",
-      "sha256": "4abe7be4eb0ea3c02fa9448bda09195638764cc4d012aa4b1ffae84d42e94c74"
+      "sha256": "cef4215848d5b91692d6ea2155ff446b455a6ce8109a96151de9e8cffd9efbab"
     },
     {
       "path": "nodes/TotemStudio/publicApiNode.ts",

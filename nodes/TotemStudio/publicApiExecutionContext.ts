@@ -58,12 +58,13 @@ export function inheritedNativeAuxiliaryContext(context: IExecuteFunctions, item
 	for (const candidate of totemExecutionIngressParents(context).filter(node =>
 		['CUSTOM.totemStudioToolTrigger', 'n8n-nodes-totem-studio.totemStudioToolTrigger'].includes(node.type))) {
 		const selected = `$(${JSON.stringify(candidate.name)})`;
-		const evidence: unknown = context.evaluateExpression(`{{ ${selected}.isExecuted ? ({ token: ${selected}.first().json.automationWriteContext, teamId: ${selected}.first().json.teamId || ${selected}.first().json.team_id || '', apiTeamId: ${selected}.first().json.apiTeamId }) : null }}`, itemIndex);
+		const evidence: unknown = context.evaluateExpression(`{{ ${selected}.isExecuted ? ({ token: ${selected}.first().json.publicApiWriteContext, teamId: ${selected}.first().json.teamId || ${selected}.first().json.team_id || '', apiTeamId: ${selected}.first().json.apiTeamId }) : null }}`, itemIndex);
 		if (evidence === null) continue;
 		if (!record(evidence) || typeof evidence.token !== 'string' || !cleanId(evidence.teamId)
 			|| !validPublicId(evidence.apiTeamId, 'team')) return null;
 		const claims = readPublicApiExecutionClaims(evidence.token), configured = candidate.parameters?.teamId;
-		if (!evidence.token.startsWith('taw2.') || !claims || claims.version !== 2 || claims.kind !== 'assistant' || !record(claims.executionRef)
+		if (!evidence.token.startsWith('taw2.') || !claims || claims.version !== 2 || claims.kind !== 'assistant' || claims.executionPath !== 'public'
+			|| !record(claims.executionRef) || !['browser_voice', 'native_phone', 'retell_call'].includes(String(claims.executionRef.kind))
 			|| claims.auxiliaryExecutionRef !== undefined || claims.teamId !== evidence.teamId || !cleanId(claims.executionId)
 			|| typeof configured === 'string' && !configured.startsWith('=') && configured.trim() && configured.trim() !== evidence.teamId) return null;
 		values.push({ token: evidence.token, teamId: evidence.teamId, apiTeamId: evidence.apiTeamId });
