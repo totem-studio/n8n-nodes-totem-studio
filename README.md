@@ -1,9 +1,7 @@
 # n8n-nodes-totem-studio
 
-Candidate **1.0.0** is prepared locally and has not been published. Stable
-1.0 acceptance still requires regional canaries and retirement of the old business path.
-
-Connect n8n workflows and AI tools to the [Totem Studio API](https://totemstudio.ai/developers).
+Version **1.0.0** connects n8n workflows and AI tools to the stable
+[Totem Studio API v1 contract](https://totemstudio.ai/developers).
 The **Totem Studio** action node and **Totem Studio Events** polling trigger use
 one reusable **Totem Studio Public API** credential.
 
@@ -13,11 +11,9 @@ For self-hosted n8n, open **Settings → Community nodes → Install** and enter
 `n8n-nodes-totem-studio`. Your n8n administrator must allow community packages.
 This package does not claim a verified n8n Cloud catalog listing.
 
-The next public release supports Node.js `>=24.18.0` on your n8n host. Its
-artifact is tested on Node 24.18 and Node 26.12.1, including the loader/runtime
-components of n8n 2.45.7. The published `0.13.0` archive retains its original
-Node 24 engine requirement until that new release is published. Maintainer
-builds and repository checks still use the separate Node 24 development policy.
+The public package requires Node.js `>=24.18.0` on your n8n host. Maintainer
+builds and repository checks use Node 24.18.0 with a separate local Node 24
+development policy.
 
 ## Connect
 
@@ -76,9 +72,8 @@ The node uses the fixed `https://api.totemstudio.ai/v1` endpoint. Totem checks
 your integration's current workspace access, permissions and revocation on
 every request. The public API's documented data boundaries still apply.
 
-The current v1 candidate adds current-source CRM context, messaging, calendar,
-Library and Catalog actions. These additions await their API rollout and package
-publication; they are not part of the published `0.13.0` archive.
+API v1 includes current-source CRM context, messaging, calendar, Library and
+Catalog actions.
 
 ## CRM writes and notes
 
@@ -97,8 +92,7 @@ grant. **Get Custom Values** returns the exact named strings and an `etag`;
 Omitted names remain unchanged, an empty string is a stored value, and `remove`
 deletes that exact name, including old copies. The receipt contains counts only.
 
-**Knowledge → Search** is in the current v1 candidate, pending publication and
-API rollout. It requires the separate `knowledge:read` content grant; existing
+**Knowledge → Search** requires the separate `knowledge:read` content grant; existing
 keys and CRM/note grants do not gain knowledge access. Enter a question of up
 to 1,000 characters and a maximum of 1–8 passages (default 4). The operation
 returns `ready` or `indexing` and bounded passage text, title, section, page and
@@ -148,7 +142,7 @@ original value and send the identical operation and fields. Keep the original
 stop: reconcile the resource or contact support with that key before taking
 another action. Changing keys can duplicate a write.
 
-## Current-source business actions (v1 candidate)
+## Current-source business actions
 
 **Message → Channels** discovers opaque references for currently configured
 senders. **Send** targets an authorized retained conversation, or an authorized
@@ -194,7 +188,7 @@ Changing the payload for that same intent is refused. Ordinary API-key workflows
 keep the execution-item behavior described above. Both use the same public
 node, API and reusable credential.
 
-## Lifecycle events (v1 candidate)
+## Lifecycle events
 
 Add **Totem Studio Events** and select the same API credential and authorized
 workspace. The key needs `events:read`. The trigger emits authorized metadata
@@ -247,17 +241,17 @@ WhatsApp call invitations use the same **Message → Send** action and API-key c
 
 ## Build the public sources
 
-The proposed public source repository is
+Public TypeScript source snapshots are available in
 [`totem-studio/n8n-nodes-totem-studio`](https://github.com/totem-studio/n8n-nodes-totem-studio).
-Its creation and publisher setup remain separate release actions. The maintained
-private repository exports a source snapshot; it does not publish its history.
+The maintained private repository exports the same implementation as a source
+snapshot; it does not publish its history.
 
 Inside that exported source checkout, use Node 24.18.0 and run:
 
 ```sh
 npm ci --ignore-scripts --no-audit --no-fund
 npm run build
-qa_host=/tmp/totem-public-qa-host-rc1
+qa_host=/tmp/totem-public-qa-host-v1
 npm run qa:prepare -- "$qa_host"
 npm ci --prefix "$qa_host" --ignore-scripts --no-audit --no-fund
 npm run lint -- "$qa_host"

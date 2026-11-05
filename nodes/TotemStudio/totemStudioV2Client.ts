@@ -182,7 +182,8 @@ async function request(
 			...(input.ifMatch ? { 'If-Match': input.ifMatch } : {}),
 			...(input.writeContext ? { 'X-Totem-Write-Context': input.writeContext } : {}),
 		},
-		...(input.body ? { body: input.body } : {}),
+		// n8n's vendor HTTP adapter drops empty objects; keep explicit JSON on the wire.
+		...(input.body ? { body: Object.keys(input.body).length === 0 ? '{}' : input.body } : {}),
 		...(input.query && Object.keys(input.query).length ? { qs: input.query } : {}),
 		json: true,
 		returnFullResponse: true,

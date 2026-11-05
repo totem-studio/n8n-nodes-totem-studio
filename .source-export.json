@@ -84,8 +84,8 @@
     {
       "source": "nodes/TotemStudio/totemStudioV2Client.ts",
       "path": "nodes/TotemStudio/totemStudioV2Client.ts",
-      "sourceSha256": "43377796c10c83f4d17b9da9efbdb288d18009f2a8c8ff2dafb80fb21c3bf734",
-      "exportedSha256": "43377796c10c83f4d17b9da9efbdb288d18009f2a8c8ff2dafb80fb21c3bf734",
+      "sourceSha256": "8498a8fe123ef2160340a46a0752ebb9e92f87eaf933e13305c056777caaf5dc",
+      "exportedSha256": "8498a8fe123ef2160340a46a0752ebb9e92f87eaf933e13305c056777caaf5dc",
       "importPathsRelocated": false
     },
     {
@@ -132,7 +132,7 @@
     },
     {
       "path": "CHANGELOG.md",
-      "sha256": "3b14e4387726a6d91666a3e50446b1eeb97314d9b648a0695dcab718413a9506"
+      "sha256": "3d09b234d7c10dc9c1079666ba1f89063839c9089fcb82c971f438a66fa05cb6"
     },
     {
       "path": "LICENSE",
@@ -140,7 +140,7 @@
     },
     {
       "path": "README.md",
-      "sha256": "20697b37ae3c453576fdafde40f8b2fc615e2c0ed3a95bcba66af51428a9025e"
+      "sha256": "a234db608a49f35baa178157a05d89f329ba62cb3ccc82fbd4dc9ebf148abb08"
     },
     {
       "path": "credentials/TotemStudioPublicApi.credentials.ts",
@@ -232,7 +232,7 @@
     },
     {
       "path": "nodes/TotemStudio/totemStudioV2Client.ts",
-      "sha256": "43377796c10c83f4d17b9da9efbdb288d18009f2a8c8ff2dafb80fb21c3bf734"
+      "sha256": "8498a8fe123ef2160340a46a0752ebb9e92f87eaf933e13305c056777caaf5dc"
     },
     {
       "path": "nodes/TotemStudio/totemStudioV2Operations.ts",
