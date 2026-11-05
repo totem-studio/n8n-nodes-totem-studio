@@ -55,4 +55,13 @@ jobs:
       - name: Verify the public registry version and integrity
         run: |
           package="$(node -p "const p=require('./package.json');p.name+'@'+p.version")"
-          npm view "$package" version dist.integrity dist.attestations --json
+          # npm may process a successful publication before its public reads converge.
+          # Retry only this read; never submit the immutable version a second time.
+          for attempt in $(seq 1 40); do
+            if npm view "$package" version dist.integrity dist.attestations --json; then
+              exit 0
+            fi
+            if [ "$attempt" -lt 40 ]; then sleep 15; fi
+          done
+          echo 'Published package is not yet available from the public registry' >&2
+          exit 1

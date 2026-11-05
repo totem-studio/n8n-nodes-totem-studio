@@ -120,7 +120,7 @@
   "files": [
     {
       "path": ".github/workflows/public-release.yml",
-      "sha256": "14325551e20df1090ff9ad01c5ef0403737118862eb2571e0fb23cd3c9af0c15"
+      "sha256": "5d4ce0c24bdf0dc6586740e0d7cdef6af6fb584c901d7dbe093aaab6d1ccf70d"
     },
     {
       "path": ".gitignore",
