@@ -61,6 +61,14 @@ export function totemExecutionIngressParents(context: Context): NodeTypeAndVersi
 			|| (node.typeVersion === 2 && CALL_TOOL_INGRESS_TYPES.has(node.type))));
 }
 
+/** These retained technical triggers may admit only their system-analysis proof, never assistant authority. */
+export function totemExecutionAnalysisParents(context: Context): NodeTypeAndVersion[] {
+	return ingressParents(context).filter(node => !node.disabled && node.typeVersion === 1
+		&& ['CUSTOM.totemStudioTelnyxTrigger', 'CUSTOM.totemStudioZadarmaTrigger', 'CUSTOM.totemStudioMeetingTrigger',
+			'n8n-nodes-totem-studio.totemStudioTelnyxTrigger', 'n8n-nodes-totem-studio.totemStudioZadarmaTrigger',
+			'n8n-nodes-totem-studio.totemStudioMeetingTrigger'].includes(node.type));
+}
+
 /** Only this genuinely executed private source adapter may replace input authority with a prepared whole-batch proof. */
 export function totemExecutionSourceParents(context: Context): NodeTypeAndVersion[] {
 	return ingressParents(context).filter(node => !node.disabled && node.typeVersion === 1

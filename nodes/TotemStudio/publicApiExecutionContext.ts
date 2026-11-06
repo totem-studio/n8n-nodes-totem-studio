@@ -1,6 +1,6 @@
 import type { IExecuteFunctions } from 'n8n-workflow';
 import { NodeOperationError } from 'n8n-workflow';
-import { INHERIT_TOTEM_EXECUTION_CONTEXT, totemExecutionIngressParents, totemExecutionSourceParents } from './runtimeExecutionContext';
+import { INHERIT_TOTEM_EXECUTION_CONTEXT, totemExecutionAnalysisParents, totemExecutionIngressParents, totemExecutionSourceParents } from './runtimeExecutionContext';
 import { TotemStudioV2ClientError, validPublicId, type TotemStudioV2Identity } from './totemStudioV2Client';
 
 /** Request-local proof, never placed in credentials, identity or workflow context caches. */
@@ -47,6 +47,25 @@ export function readPublicApiExecutionClaims(token: unknown): Record<string, unk
 		const claims: unknown = JSON.parse(bytes.toString('utf8'));
 		return record(claims) ? claims : null;
 	} catch { return null; }
+}
+
+/** Existing server envelope only. Empty V1 remains byte-compatible; presented V2 must match its authenticated typed resource. */
+export function readPublicApiSystemAnalysisIngress(body: unknown, input: {
+	authenticated: boolean; teamId: unknown; resourceId: unknown; kind: 'call' | 'meeting';
+}): { automationWriteContext?: string; apiTeamId?: string; analysisResourceId?: string } | null {
+	if (!record(body)) return null;
+	if (!['publicApiWriteContext', 'apiTeamId', 'analysisResourceId'].some(key => Object.prototype.hasOwnProperty.call(body, key))) return {};
+	const token = body.publicApiWriteContext, claims = readPublicApiExecutionClaims(token);
+	const action = input.kind === 'call' ? 'call.analysis.update' : 'meeting.analysis.update';
+	if (!input.authenticated || typeof token !== 'string' || !token.startsWith('tsa2.') || !claims
+		|| claims.version !== 2 || claims.kind !== 'system_analysis' || claims.actor !== 'totem-system-analyzer'
+		|| !cleanId(input.teamId) || claims.teamId !== input.teamId || !cleanId(claims.principalId)
+		|| claims.resourceKind !== input.kind || !cleanId(input.resourceId) || claims.resourceId !== input.resourceId
+		|| claims.action !== action || !Array.isArray(claims.allowedOperations)
+		|| claims.allowedOperations.length !== 1 || claims.allowedOperations[0] !== action
+		|| !cleanId(claims.executionId) || claims.executionId !== claims.dispatchGeneration
+		|| !validPublicId(body.apiTeamId, 'team') || !validPublicId(body.analysisResourceId, input.kind === 'call' ? 'call' : 'bkg')) return null;
+	return { automationWriteContext: token, apiTeamId: body.apiTeamId, analysisResourceId: body.analysisResourceId };
 }
 
 /** A genuine direct Native tool already carries its server-issued action proof; never synthesize a chat/child reference for it. */
@@ -100,18 +119,21 @@ export function resolvePublicApiExecutionContext(context: IExecuteFunctions, ite
 	if (context.getMode() === 'manual' || rawContext === '' || rawContext === null || rawContext === undefined)
 		throw new TotemStudioV2ClientError('invalid_credentials', 401);
 	try {
-		const executed: Array<{ value: Record<string, unknown>; configuredTeam: unknown; auxiliarySource: boolean }> = [];
+		const executed: Array<{ value: Record<string, unknown>; configuredTeam: unknown; auxiliarySource: boolean; analysisKind?: 'call' | 'meeting' }> = [];
 		const sourceParents = totemExecutionSourceParents(context);
-		for (const candidate of sourceParents.length ? sourceParents : totemExecutionIngressParents(context)) {
+		const analysisParents = totemExecutionAnalysisParents(context);
+		for (const candidate of sourceParents.length ? sourceParents : [...totemExecutionIngressParents(context), ...analysisParents]) {
 			const selected = `$(${JSON.stringify(candidate.name)})`;
-			const evidence = context.evaluateExpression(`{{ ${selected}.isExecuted ? ({ token: ${selected}.first().json.automationWriteContext, teamId: ${selected}.first().json.teamId || ${selected}.first().json.team_id || '', apiTeamId: ${selected}.first().json.apiTeamId }) : null }}`, itemIndex);
+			const analysisKind = analysisParents.includes(candidate) ? candidate.type.endsWith('MeetingTrigger') ? 'meeting' : 'call' : undefined;
+			const analysis = analysisKind ? `, analysisResourceId: ${selected}.first().json.analysisResourceId, resourceId: ${selected}.first().json.${analysisKind === 'meeting' ? 'appointment_id' : candidate.type.endsWith('ZadarmaTrigger') ? 'pbx_call_id' : 'call_id'}` : '';
+			const evidence = context.evaluateExpression(`{{ ${selected}.isExecuted ? ({ token: ${selected}.first().json.automationWriteContext, teamId: ${selected}.first().json.teamId || ${selected}.first().json.team_id || '', apiTeamId: ${selected}.first().json.apiTeamId${analysis} }) : null }}`, itemIndex);
 			if (evidence === null) continue;
 			if (!record(evidence)) throw new Error('invalid ingress');
 			executed.push({ value: evidence, configuredTeam: candidate.parameters?.teamId,
-				auxiliarySource: candidate.type === 'CUSTOM.totemStudioAuxiliarySource' });
+				auxiliarySource: candidate.type === 'CUSTOM.totemStudioAuxiliarySource', ...(analysisKind ? { analysisKind } : {}) });
 		}
 		if (executed.length !== 1) throw new Error('one executed ingress required');
-		const { value, configuredTeam, auxiliarySource } = executed[0]!;
+		const { value, configuredTeam, auxiliarySource, analysisKind } = executed[0]!;
 		const token = value.token;
 		if (typeof token !== 'string' || token.length > 24_000
 			|| !/^(?:taw2|tsa2)\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]{43}$/u.test(token)
@@ -125,6 +147,17 @@ export function resolvePublicApiExecutionContext(context: IExecuteFunctions, ite
 			|| !cleanId(claims.executionId)
 			|| typeof configuredTeam === 'string' && !configuredTeam.startsWith('=') && configuredTeam.trim()
 				&& configuredTeam.trim() !== value.teamId) throw new Error('execution identity mismatch');
+		if ((claims.kind === 'system_analysis') !== (analysisKind !== undefined)) throw new Error('analysis ingress mismatch');
+		if (analysisKind) {
+			const projection = readPublicApiSystemAnalysisIngress({ publicApiWriteContext: token, apiTeamId: value.apiTeamId,
+				analysisResourceId: value.analysisResourceId }, { authenticated: true, teamId: value.teamId, resourceId: value.resourceId, kind: analysisKind });
+			const resource = context.getNodeParameter('resource', itemIndex, '');
+			const prefix = typeof resource === 'string' && resource.startsWith('api_') ? 'public' : '';
+			if (!projection || projection.automationWriteContext !== token
+				|| resource !== `${prefix ? 'api_' : ''}${analysisKind === 'call' ? 'call' : 'booking'}`
+				|| context.getNodeParameter(prefix ? 'publicOperation' : 'operation', itemIndex, '') !== 'updateAnalysis'
+				|| context.getNodeParameter(prefix ? 'publicRecordId' : 'recordId', itemIndex, '') !== value.analysisResourceId) throw new Error('analysis resource mismatch');
+		}
 		let auxiliaryExecutionRef: PublicApiExecutionAuthority['auxiliaryExecutionRef'];
 		if (claims.auxiliaryExecutionRef !== undefined) {
 			const ref = readPublicApiAuxiliaryReference(claims.auxiliaryExecutionRef, value.teamId);

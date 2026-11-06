@@ -35,8 +35,8 @@
     {
       "source": "nodes/TotemStudio/publicApiExecutionContext.ts",
       "path": "nodes/TotemStudio/publicApiExecutionContext.ts",
-      "sourceSha256": "cef4215848d5b91692d6ea2155ff446b455a6ce8109a96151de9e8cffd9efbab",
-      "exportedSha256": "cef4215848d5b91692d6ea2155ff446b455a6ce8109a96151de9e8cffd9efbab",
+      "sourceSha256": "7078cabc4e9c4fa1a5238d7e049602be1550ba95386da4b100679cb773e38410",
+      "exportedSha256": "7078cabc4e9c4fa1a5238d7e049602be1550ba95386da4b100679cb773e38410",
       "importPathsRelocated": false
     },
     {
@@ -77,8 +77,8 @@
     {
       "source": "nodes/TotemStudio/runtimeExecutionContext.ts",
       "path": "nodes/TotemStudio/runtimeExecutionContext.ts",
-      "sourceSha256": "84161a51eb04b2818fa1874ca10b85c4a07a11138123e50a445a5439eb1db05a",
-      "exportedSha256": "84161a51eb04b2818fa1874ca10b85c4a07a11138123e50a445a5439eb1db05a",
+      "sourceSha256": "ec6510a91e08e0d6ce49ccd29ae4d3ad14e4c4994e8f7b3eb47b65f021285e78",
+      "exportedSha256": "ec6510a91e08e0d6ce49ccd29ae4d3ad14e4c4994e8f7b3eb47b65f021285e78",
       "importPathsRelocated": false
     },
     {
@@ -196,7 +196,7 @@
     },
     {
       "path": "nodes/TotemStudio/publicApiExecutionContext.ts",
-      "sha256": "cef4215848d5b91692d6ea2155ff446b455a6ce8109a96151de9e8cffd9efbab"
+      "sha256": "7078cabc4e9c4fa1a5238d7e049602be1550ba95386da4b100679cb773e38410"
     },
     {
       "path": "nodes/TotemStudio/publicApiNode.ts",
@@ -220,7 +220,7 @@
     },
     {
       "path": "nodes/TotemStudio/runtimeExecutionContext.ts",
-      "sha256": "84161a51eb04b2818fa1874ca10b85c4a07a11138123e50a445a5439eb1db05a"
+      "sha256": "ec6510a91e08e0d6ce49ccd29ae4d3ad14e4c4994e8f7b3eb47b65f021285e78"
     },
     {
       "path": "nodes/TotemStudio/totemStudio.dark.svg",
